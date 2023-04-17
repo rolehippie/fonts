@@ -1,0 +1,116 @@
+# Standards: 1.2
+---
+- name: Install required packages
+  loop: "{{ fonts_general_packages + fonts_extra_packages }}"
+  package:
+    name: "{{ item.name | default(item) }}"
+    state: "{{ item.state | default('present') }}"
+  tags:
+    - fonts
+
+- name: Create archive destination
+  loop: "{{ fonts_general_archives + fonts_extra_archives }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: item.state | default('present') == 'present'
+  notify:
+    - Update fonts
+  file:
+    path: "/usr/local/src/{{ item.name }}"
+    owner: root
+    group: root
+    mode: u=rxw,g=rx,o=rx
+    state: directory
+  tags:
+    - fonts
+
+- name: Create archive fontdir
+  loop: "{{ fonts_general_archives + fonts_extra_archives }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: item.state | default('present') == 'present'
+  notify:
+    - Update fonts
+  file:
+    path: "/usr/share/fonts/truetype/{{ item.name }}"
+    owner: root
+    group: root
+    mode: u=rxw,g=rx,o=rx
+    state: directory
+  tags:
+    - fonts
+
+- name: Download required archives
+  loop: "{{ fonts_general_archives + fonts_extra_archives }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: item.state | default('present') == 'present'
+  notify:
+    - Update fonts
+  unarchive:
+    src: "{{ item.url }}"
+    dest: "/usr/local/src/{{ item.name }}"
+    exclude: "{{ item.exclude | default(omit) }}"
+    include: "{{ item.include | default(omit) }}"
+    remote_src: True
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+  tags:
+    - fonts
+
+- name: Detect archive fonts
+  loop: "{{ fonts_general_archives + fonts_extra_archives }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: item.state | default('present') == 'present'
+  register: fonts_detected_archives
+  find:
+    path: "/usr/local/src/{{ item.name }}"
+    pattern: "*.ttf"
+  tags:
+    - fonts
+
+- name: Link detected archives
+  loop: "{{ fonts_detected_archives.results | default([]) | subelements('files', skip_missing=True) }}"
+  loop_control:
+    label: "{{ item.0.item.name }}: {{ item.1.path | basename }}"
+  notify:
+    - Update fonts
+  file:
+    src: "{{ item.1.path }}"
+    dest: "/usr/share/fonts/truetype/{{ item.0.item.name }}/{{ item.1.path | basename }}"
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+    state: link
+  tags:
+    - fonts
+
+- name: Remove defined fontdir
+  loop: "{{ fonts_general_archives + fonts_extra_archives }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: item.state | default('present') == 'absent'
+  notify:
+    - Update fonts
+  file:
+    path: "/usr/share/fonts/truetype/{{ item.name }}"
+    state: absent
+  tags:
+    - fonts
+
+- name: Remove defined destination
+  loop: "{{ fonts_general_archives + fonts_extra_archives }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: item.state | default('present') == 'absent'
+  notify:
+    - Update fonts
+  file:
+    path: "/usr/local/src/{{ item.name }}"
+    state: absent
+  tags:
+    - fonts
+
+...

@@ -1,0 +1,6 @@
+# Standards: 1.2
+---
+- name: Update fonts
+  command: fc-cache -fv
+
+...

@@ -1,0 +1,44 @@
+# Standards: 1.2
+---
+# @var fonts_general_packages:description: List of general packages to install
+fonts_general_packages:
+  - fonts-firacode
+  - fonts-font-awesome
+  - fonts-noto
+  - fonts-roboto
+
+# @var fonts_extra_packages:description: List of extra packages to install
+fonts_extra_packages: []
+
+# @var fonts_general_archives:description: List of general archives to install
+# @var fonts_general_archives:example: >
+# fonts_general_archives:
+#   - name: nerd-font-agave
+#     url: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/Agave.zip
+#     exclude:
+#       - FILENAME.txt
+#   - name: nerd-font-arimo
+#     state: absent
+# @end
+fonts_general_archives:
+  - name: source-code-pro
+    url: https://fonts.google.com/download?family=Source%20Code%20Pro
+    exclude:
+      - README.txt
+      - static/*
+  - name: source-sans-pro
+    url: https://fonts.google.com/download?family=Source%20Sans%20Pro
+
+# @var fonts_extra_archives:description: List of extra archives to install
+# @var fonts_extra_archives:example: >
+# fonts_extra_archives:
+#   - name: nerd-font-agave
+#     url: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/Agave.zip
+#     exclude:
+#       - FILENAME.txt
+#   - name: nerd-font-arimo
+#     state: absent
+# @end
+fonts_extra_archives: []
+
+...
