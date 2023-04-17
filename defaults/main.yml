@@ -2,6 +2,7 @@
 ---
 # @var fonts_general_packages:description: List of general packages to install
 fonts_general_packages:
+  - unzip
   - fonts-firacode
   - fonts-font-awesome
   - fonts-noto
