@@ -104,6 +104,7 @@ List of general packages to install
 
 ```YAML
 fonts_general_packages:
+  - fontconfig
   - unzip
   - fonts-firacode
   - fonts-font-awesome
