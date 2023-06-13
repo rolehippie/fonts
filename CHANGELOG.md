@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/rolehippie/fonts/compare/v1.0.0...v1.1.0) (2023-06-13)
+
+
+### Features
+
+* drop source-sans-pro, does not exist anymore ([803524c](https://github.com/rolehippie/fonts/commit/803524c3dfaf08167855690c0b52b872c44202b5))
+
 ## 1.0.0 (2023-04-17)
 
 
