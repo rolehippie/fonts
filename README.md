@@ -80,8 +80,6 @@ fonts_general_archives:
     exclude:
       - README.txt
       - static/*
-  - name: source-sans-pro
-    url: https://fonts.google.com/download?family=Source%20Sans%20Pro
 ```
 
 #### Example usage
