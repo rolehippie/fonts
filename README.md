@@ -7,6 +7,12 @@
 [![License: Apache-2.0](https://img.shields.io/github/license/rolehippie/fonts)](https://github.com/rolehippie/fonts/blob/master/LICENSE)
 [![Ansible Role](https://img.shields.io/badge/role-rolehippie.fonts-blue)](https://galaxy.ansible.com/rolehippie/fonts)
 
+> [!IMPORTANT]
+> This role have been archived because of the lack of maintenance and because
+> we are not actively using it anymore. If you are using this role feel free
+> to fork and maintain it on your own. Maybe we will unarchive this repository
+> in the future at some point, maybe not... Who knows...
+
 Ansible role to install additional system fonts.
 
 ## Sponsor
